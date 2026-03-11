@@ -41,4 +41,15 @@ public class CategoryService {
                 .map(CategoryMapper::toCategoryResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Nome de categoria não encontrado: " + categoryName));
     }
+
+    @Transactional
+    public CategoryResponseDTO updateCategory(CategoryRequestDTO categoryRequestDTO, Long categoryId) {
+        Category categoryEntity = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada pelo id: " + categoryId));
+
+        categoryEntity.setCategoryName(categoryRequestDTO.categoryName());
+
+        return CategoryMapper.toCategoryResponseDTO(categoryRepository.save(categoryEntity));
+    }
+
 }
