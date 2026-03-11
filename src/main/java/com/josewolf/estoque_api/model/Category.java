@@ -23,6 +23,6 @@ public class Category {
     @Column(unique = true)
     private String categoryName;
 
-    @OneToMany(mappedBy = "category_id",  cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> product;
 }
