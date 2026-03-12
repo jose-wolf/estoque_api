@@ -91,4 +91,13 @@ public class ProductService {
         return ProductMapper.toProductResponseDTO(productRepository.save(product));
 
     }
+
+    @Transactional
+    public void deleteProduct (Long id) {
+        if(!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Produto não encontrado pelo id: " + id);
+        }
+
+        productRepository.deleteById(id);
+    }
 }
