@@ -52,4 +52,11 @@ public class CategoryService {
         return CategoryMapper.toCategoryResponseDTO(categoryRepository.save(categoryEntity));
     }
 
+    @Transactional
+    public void deleteCategory(Long categoryId) {
+        if(!categoryRepository.existsById(categoryId)) {
+            throw new ResourceNotFoundException("Categoria não encontrada pelo id: " + categoryId);
+        }
+        categoryRepository.deleteById(categoryId);
+    }
 }
