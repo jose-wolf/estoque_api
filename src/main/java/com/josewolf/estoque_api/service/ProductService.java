@@ -73,4 +73,22 @@ public class ProductService {
 
         return list;
     }
+
+    @Transactional
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado pelo id: " + id));
+
+        Category category = categoryRepository.findById(productRequestDTO.categoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada pelo id: " + productRequestDTO.categoryId()));
+
+        product.setProductName(productRequestDTO.productName());
+        product.setDescription(productRequestDTO.description());
+        product.setPrice(productRequestDTO.price());
+        product.setQuantity(productRequestDTO.quantity());
+        product.setCategory(category);
+
+        return ProductMapper.toProductResponseDTO(productRepository.save(product));
+
+    }
 }
