@@ -13,7 +13,8 @@ public class ProductMapper {
                 product.getDescription(),
                 product.getPrice(),
                 product.getQuantity(),
-                product.getCategory() != null ? product.getCategory().getCategoryName() : null
+                product.getCategory() != null ? product.getCategory().getCategoryName() : null,
+                product.getCategory() != null ? product.getCategory().getId() : null
         );
     }
 

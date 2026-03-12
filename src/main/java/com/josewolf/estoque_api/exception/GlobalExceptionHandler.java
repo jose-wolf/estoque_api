@@ -45,6 +45,10 @@ public class GlobalExceptionHandler {
             userMessage = "Já existe uma categoria cadastrada com este nome!";
         }
 
+        if (ex.getMessage().contains("tb_product") || ex.getMessage().contains("product_name")) {
+            userMessage = "Já existe um produto com este nome e descrição cadastrados!";
+        }
+
         StandardError err = new StandardError(
                 HttpStatus.CONFLICT.value(),
                 "Data Conflict",
