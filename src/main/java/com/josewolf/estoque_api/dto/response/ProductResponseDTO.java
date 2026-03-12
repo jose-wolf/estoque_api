@@ -1,7 +1,5 @@
 package com.josewolf.estoque_api.dto.response;
 
-import com.josewolf.estoque_api.model.Category;
-
 import java.math.BigDecimal;
 
 public record ProductResponseDTO(
@@ -10,7 +8,8 @@ public record ProductResponseDTO(
     String description,
     BigDecimal price,
     Integer quantity,
-    String categoryName
+    String categoryName,
+    Long categoryId
 ) {
 
     public BigDecimal getTotalStockValue() {

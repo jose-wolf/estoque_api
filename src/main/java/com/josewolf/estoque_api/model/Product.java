@@ -14,14 +14,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products")
+@Table(name = "products", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"productName", "description"})
+})
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String productName;
 
     @Column(nullable = false, length = 150)
