@@ -12,4 +12,11 @@ public record ProductResponseDTO(
     Integer quantity,
     String categoryName
 ) {
+
+    public BigDecimal getTotalStockValue() {
+        if(price == null || quantity == null){
+            return BigDecimal.ZERO;
+        }
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
 }
