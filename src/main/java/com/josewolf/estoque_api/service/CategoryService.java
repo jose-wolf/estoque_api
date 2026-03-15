@@ -50,7 +50,7 @@ public class CategoryService {
         if (!categoryEntity.getCategoryName().equalsIgnoreCase(categoryRequestDTO.categoryName())) {
             boolean nameExists = categoryRepository.existsByCategoryNameIgnoreCase(categoryRequestDTO.categoryName());
             if (nameExists) {
-                throw new DataIntegrityViolationException("Category name already exists: " + categoryRequestDTO.categoryName());
+                throw new DataIntegrityViolationException("Categoria já existe: " + categoryRequestDTO.categoryName());
             }
         }
 
