@@ -7,6 +7,7 @@ import com.josewolf.estoque_api.mapper.CategoryMapper;
 import com.josewolf.estoque_api.model.Category;
 import com.josewolf.estoque_api.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,13 @@ public class CategoryService {
     public CategoryResponseDTO updateCategory(CategoryRequestDTO categoryRequestDTO, Long categoryId) {
         Category categoryEntity = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada pelo id: " + categoryId));
+
+        if (!categoryEntity.getCategoryName().equalsIgnoreCase(categoryRequestDTO.categoryName())) {
+            boolean nameExists = categoryRepository.existsByCategoryNameIgnoreCase(categoryRequestDTO.categoryName());
+            if (nameExists) {
+                throw new DataIntegrityViolationException("Category name already exists: " + categoryRequestDTO.categoryName());
+            }
+        }
 
         categoryEntity.setCategoryName(categoryRequestDTO.categoryName());
 
