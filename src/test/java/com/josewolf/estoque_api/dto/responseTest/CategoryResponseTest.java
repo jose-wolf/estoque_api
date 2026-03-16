@@ -1,4 +1,4 @@
-package dto.responseTest;
+package com.josewolf.estoque_api.dto.responseTest;
 
 import com.josewolf.estoque_api.dto.response.CategoryResponseDTO;
 import com.josewolf.estoque_api.dto.response.ProductResponseDTO;
