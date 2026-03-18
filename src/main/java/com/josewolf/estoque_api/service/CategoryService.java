@@ -22,6 +22,10 @@ public class CategoryService {
     @Transactional
     public CategoryResponseDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
 
+        boolean nameExists = categoryRepository.existsByCategoryNameIgnoreCase(categoryRequestDTO.categoryName());
+        if (nameExists) {
+            throw new DataIntegrityViolationException("Categoria já existe: " + categoryRequestDTO.categoryName());
+        }
         Category category = CategoryMapper.toCategory(categoryRequestDTO);
 
         Category savedCategory = categoryRepository.save(category);
